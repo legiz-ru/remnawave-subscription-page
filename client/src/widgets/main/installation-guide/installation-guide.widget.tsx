@@ -9,12 +9,30 @@ import {
 } from '@tabler/icons-react'
 import { Button, Group, Tabs, Text, ThemeIcon, Timeline } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 
 import { useSubscriptionInfoStoreInfo } from '@entities/subscription-info-store'
 
 export const InstallationGuideWidget = () => {
     const { t } = useTranslation()
     const { remnawaveSubscription } = useSubscriptionInfoStoreInfo()
+
+    const [defaultTab, setDefaultTab] = useState('android')
+
+    const getDeviceType = () => {
+        const userAgent = navigator.userAgent.toLowerCase()
+        if (userAgent.includes('android')) {
+            return 'android'
+        } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+            return 'ios'
+        } else {
+            return 'desktop'
+        }
+    }
+
+    useEffect(() => {
+        setDefaultTab(getDeviceType())
+    }, [])
 
     if (!remnawaveSubscription) return null
 
@@ -29,7 +47,7 @@ export const InstallationGuideWidget = () => {
     };
     
     return (
-        <Tabs defaultValue="android">
+        <Tabs defaultValue={defaultTab}>
             <Group mb="md">
                 <Text fw={700} size="xl">
                     {t('installation-guide.widget.instrukciya')}
