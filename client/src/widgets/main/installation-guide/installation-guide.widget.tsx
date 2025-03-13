@@ -21,10 +21,10 @@ export const InstallationGuideWidget = () => {
     const { subscriptionUrl } = remnawaveSubscription
 
     const openInClient = (platform: string) => {
-        window.open(`happ://add/${subscriptionUrl}`, '_blank')
+        window.open(`clash://install-config?url=${subscriptionUrl}`, '_blank')
 
-        if (platform === 'desktop') {
-            window.open(`hiddify://import/${subscriptionUrl}`, '_blank')
+        if (platform === 'ios') {
+            window.open(`sing-box://import-remote-profile?url=${subscriptionUrl}`, '_blank')
         }
     }
 
@@ -55,19 +55,19 @@ export const InstallationGuideWidget = () => {
                                 <IconDownload size={16} />
                             </ThemeIcon>
                         }
-                        title={t('installation-guide.widget.ustanovite-i-otkroite-happ')}
+                        title={t('installation-guide.widget.install-clashmeta')}
                     >
                         <Text c="dimmed" mb={16} size="sm">
-                            {t('installation-guide.widget.open-google-play')}
+                            {t('installation-guide.widget.open-github')}
                         </Text>
                         <Button
                             component="a"
-                            href="https://play.google.com/store/apps/details?id=com.happproxy"
+                            href="https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.7/cmfa-2.11.7-meta-universal-release.apk"
                             leftSection={<IconExternalLink size={16} />}
                             target="_blank"
                             variant="light"
                         >
-                            {t('installation-guide.widget.open-in-google-play')}
+                            {t('installation-guide.widget.download-github')}
                         </Button>
                     </Timeline.Item>
 
@@ -80,7 +80,7 @@ export const InstallationGuideWidget = () => {
                         title={t('installation-guide.widget.add-subscription')}
                     >
                         <Text c="dimmed" mb={16} size="sm">
-                            {t('installation-guide.widget.add-subscription-description')}
+                            {t('installation-guide.widget.add-subscription-description-clashmeta')}
                         </Text>
                         <Button onClick={() => openInClient('android')} variant="filled">
                             {t('installation-guide.widget.add-subscription-button')}
@@ -96,7 +96,7 @@ export const InstallationGuideWidget = () => {
                         title={t('installation-guide.widget.connect-and-use')}
                     >
                         <Text c="dimmed" size="sm">
-                            {t('installation-guide.widget.connect-and-use-description')}
+                            {t('installation-guide.widget.connect-and-use-description-clashmeta')}
                         </Text>
                     </Timeline.Item>
                 </Timeline>
@@ -110,14 +110,14 @@ export const InstallationGuideWidget = () => {
                                 <IconDownload size={16} />
                             </ThemeIcon>
                         }
-                        title={t('installation-guide.widget.ustanovite-i-otkroite-happ')}
+                        title={t('installation-guide.widget.install-singbox')}
                     >
                         <Text c="dimmed" mb={16} size="sm">
                             {t('installation-guide.widget.install-app-store-description')}
                         </Text>
                         <Button
                             component="a"
-                            href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215"
+                            href="https://apps.apple.com/app/sing-box-vt/id6673731168"
                             leftSection={<IconExternalLink size={16} />}
                             target="_blank"
                             variant="light"
@@ -151,7 +151,7 @@ export const InstallationGuideWidget = () => {
                         title={t('installation-guide.widget.connect-and-use')}
                     >
                         <Text c="dimmed" size="sm">
-                            {t('installation-guide.widget.connect-and-use-description')}
+                            {t('installation-guide.widget.connect-and-use-description-singbox')}
                         </Text>
                     </Timeline.Item>
                 </Timeline>
@@ -165,15 +165,15 @@ export const InstallationGuideWidget = () => {
                                 <IconDownload size={16} />
                             </ThemeIcon>
                         }
-                        title={t('installation-guide.widget.install-hiddify')}
+                        title={t('installation-guide.widget.install-flclash')}
                     >
                         <Text c="dimmed" mb={16} size="sm">
-                            {t('installation-guide.widget.install-hiddify-description')}
+                            {t('installation-guide.widget.install-flclash-description')}
                         </Text>
                         <Group>
                             <Button
                                 component="a"
-                                href="https://github.com/hiddify/hiddify-app/releases/download/v2.5.7/Hiddify-Windows-Setup-x64.exe"
+                                href="https://github.com/chen08209/FlClash/releases/download/v0.8.80/FlClash-0.8.80-windows-amd64-setup.exe"
                                 leftSection={<IconExternalLink size={16} />}
                                 target="_blank"
                                 variant="light"
@@ -182,16 +182,25 @@ export const InstallationGuideWidget = () => {
                             </Button>
                             <Button
                                 component="a"
-                                href="https://github.com/hiddify/hiddify-app/releases/download/v2.5.7/Hiddify-MacOS.dmg"
+                                href="https://github.com/chen08209/FlClash/releases/download/v0.8.80/FlClash-0.8.80-macos-arm64.dmg"
                                 leftSection={<IconExternalLink size={16} />}
                                 target="_blank"
                                 variant="light"
                             >
-                                macOS
+                                macOS Apple Silicon
                             </Button>
                             <Button
                                 component="a"
-                                href="https://github.com/hiddify/hiddify-app/releases/download/v2.5.7/Hiddify-Linux-x64.AppImage"
+                                href="https://github.com/chen08209/FlClash/releases/download/v0.8.80/FlClash-0.8.80-macos-amd64.dmg"
+                                leftSection={<IconExternalLink size={16} />}
+                                target="_blank"
+                                variant="light"
+                            >
+                                macOS Intel x64
+                            </Button>
+                            <Button
+                                component="a"
+                                href="https://github.com/chen08209/FlClash/releases/download/v0.8.80/FlClash-0.8.80-linux-amd64.AppImage"
                                 leftSection={<IconExternalLink size={16} />}
                                 target="_blank"
                                 variant="light"
@@ -226,7 +235,7 @@ export const InstallationGuideWidget = () => {
                         title={t('installation-guide.widget.connect-and-use')}
                     >
                         <Text c="dimmed" size="sm">
-                            {t('installation-guide.widget.select-server-hiddify')}
+                            {t('installation-guide.widget.select-server-flclash')}
                         </Text>
                     </Timeline.Item>
                 </Timeline>
