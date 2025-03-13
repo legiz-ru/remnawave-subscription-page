@@ -17,22 +17,24 @@ export const InstallationGuideWidget = () => {
     const { t } = useTranslation()
     const { remnawaveSubscription } = useSubscriptionInfoStoreInfo()
 
-    const [defaultTab, setDefaultTab] = useState('android')
-
-    const getDeviceType = () => {
-        const userAgent = navigator.userAgent.toLowerCase()
-        if (userAgent.includes('android')) {
-            return 'android'
-        } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
-            return 'ios'
-        } else {
+    const [defaultTab, setDefaultTab] = useState(() => {
+        try {
+            if (typeof window !== 'undefined' && window.navigator) {
+                const userAgent = window.navigator.userAgent.toLowerCase()
+                if (userAgent.indexOf('android') !== -1) {
+                    return 'android'
+                } else if (
+                    userAgent.indexOf('iphone') !== -1 || 
+                    userAgent.indexOf('ipad') !== -1
+                ) {
+                    return 'ios'
+                }
+            }
+            return 'desktop'
+        } catch (error) {
             return 'desktop'
         }
-    }
-
-    useEffect(() => {
-        setDefaultTab(getDeviceType())
-    }, [])
+    })
 
     if (!remnawaveSubscription) return null
 
