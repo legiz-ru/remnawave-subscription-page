@@ -20,14 +20,14 @@ export const InstallationGuideWidget = () => {
 
     const { subscriptionUrl } = remnawaveSubscription
 
-    const openInClient = (platform: string) => {
+    const openclash = () => {
         window.open(`clash://install-config?url=${subscriptionUrl}`, '_blank')
+    };
 
-        if (platform === 'ios') {
-            window.open(`sing-box://import-remote-profile?url=${subscriptionUrl}`, '_blank')
-        }
-    }
-
+    const opensingbox = () => {
+        window.open(`sing-box://import-remote-profile?url=${subscriptionUrl}`, '_blank');
+    };
+    
     return (
         <Tabs defaultValue="android">
             <Group mb="md">
@@ -82,7 +82,7 @@ export const InstallationGuideWidget = () => {
                         <Text c="dimmed" mb={16} size="sm">
                             {t('installation-guide.widget.add-subscription-description-clashmeta')}
                         </Text>
-                        <Button onClick={() => openInClient('android')} variant="filled">
+                        <Button onClick={openclash} variant="filled">
                             {t('installation-guide.widget.add-subscription-button')}
                         </Button>
                     </Timeline.Item>
@@ -137,7 +137,7 @@ export const InstallationGuideWidget = () => {
                         <Text c="dimmed" mb={16} size="sm">
                             {t('installation-guide.widget.add-ios-subscription-description')}
                         </Text>
-                        <Button onClick={() => openInClient('ios')} variant="filled">
+                        <Button onClick={opensingbox} variant="filled">
                             {t('installation-guide.widget.add-subscription-button')}
                         </Button>
                     </Timeline.Item>
@@ -221,7 +221,7 @@ export const InstallationGuideWidget = () => {
                         <Text c="dimmed" mb={16} size="sm">
                             {t('installation-guide.widget.add-subscription-pc-description')}
                         </Text>
-                        <Button onClick={() => openInClient('desktop')} variant="filled">
+                        <Button onClick={openclash} variant="filled">
                             {t('installation-guide.widget.add-subscription-button')}
                         </Button>
                     </Timeline.Item>
