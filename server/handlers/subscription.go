@@ -1,12 +1,14 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"io"
 	"log/slog"
-
+	"strings"
 	"subscription-page-template/server/api"
+	"subscription-page-template/server/config"
+	"subscription-page-template/server/marzban"
 	"subscription-page-template/server/utils"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type SubscriptionHandler struct {
@@ -21,6 +23,33 @@ func NewSubscriptionHandler(apiClient *api.Client) *SubscriptionHandler {
 
 func (h *SubscriptionHandler) HandleSubscription(c *fiber.Ctx) error {
 	shortId := c.Params("shortId")
+
+	
+	if(config.IsMarzbanLegacyLinkEnabled()) {
+		res := marzban.VerifyMarzbanLink(shortId)
+
+		if res != nil {
+			username := ""
+			username = res.Username
+			slog.Info("Decoded Marzban Link", "res", res)
+
+			user, err := h.apiClient.GetUserByUsernameJSON(utils.SanitizeUsername(username))
+			if err != nil {
+				slog.Error("Error fetching user", "error", err)
+				return c.Status(fiber.StatusInternalServerError).SendString("Backend returned unexpected error.")
+			}
+
+		shortId = user.ShortUUID
+		}
+
+		if res == nil {
+			slog.Info("Decoding Marzban Link failed, trying to get subscription by shortId", "shortId", shortId)
+		}
+	}
+
+
+
+
 	if shortId == "" {
 		return c.Status(fiber.StatusBadRequest).SendString("Bad request.")
 	}
@@ -30,31 +59,54 @@ func (h *SubscriptionHandler) HandleSubscription(c *fiber.Ctx) error {
 		headers[string(key)] = append(headers[string(key)], string(value))
 	})
 
-	resp, err := h.apiClient.FetchAPI(shortId, headers)
+	resp, err := h.apiClient.FetchAPI(shortId, headers, c.Locals("isJson").(bool))
+
 	if err != nil {
 		slog.Error("Error fetching API", "error", err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Request error.")
 	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Read response error.")
-	}
 
 	userAgent := c.Get("User-Agent")
+	isBrowser := utils.IsBrowser(userAgent)
 
-	if utils.IsBrowser(userAgent) {
+	if resp.StatusCode == fiber.StatusNotFound {
+		slog.Error("Subscription not found", "shortId", shortId)
+		slog.Error("Server response", "response", resp.String())
+		return c.Status(fiber.StatusNotFound).SendString("Subscription not found.")
+	}
+	
+
+	if resp.StatusCode != fiber.StatusOK {
+		return c.Render("./dist/index.html", fiber.Map{
+			"Data": string("Request error."),
+		})
+	}
+
+	body := resp.Bytes()
+	
+	if isBrowser {
 		return c.Render("./dist/index.html", fiber.Map{
 			"Data": string(body),
 		})
 	}
-
-	for name, values := range resp.Header {
-		for _, value := range values {
-			c.Set(name, value)
-		}
+	
+	filteredHeaders := []string{
+		"Profile-Title",
+		"Profile-Update-Interval",
+		"Subscription-Userinfo",
+		"Profile-Web-Page-Url",
+		"Content-Disposition",
+		"Content-Type",
+		"Support-Url",
+		"Routing",
+		"Announce",
 	}
 
+	for _, header := range filteredHeaders {
+		if values, found := resp.Header[header]; found {
+			c.Set(header, strings.Join(values, ","))
+		}
+	}
+	
 	return c.Status(resp.StatusCode).Send(body)
 }

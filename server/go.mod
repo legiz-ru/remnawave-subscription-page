@@ -6,8 +6,9 @@ toolchain go1.22.2
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.0
+	github.com/imroc/req/v3 v3.50.0
 	github.com/joho/godotenv v1.5.1
-	github.com/klauspost/compress v1.17.11
+	golang.org/x/exp v0.0.0-20241215155358-4a5509556b9e
 )
 
 require (
@@ -18,7 +19,7 @@ require (
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/imroc/req/v3 v3.50.0 // indirect
+	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
@@ -32,7 +33,6 @@ require (
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	go.uber.org/mock v0.5.0 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/exp v0.0.0-20241215155358-4a5509556b9e // indirect
 	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
