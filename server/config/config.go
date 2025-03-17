@@ -16,6 +16,7 @@ var (
 	remnawaveApiToken string
 	customSubPrefix string
 	logLevel string
+	requestRemnawaveScheme string
 )
 
 func LoadConfig() error {
@@ -33,7 +34,8 @@ func LoadConfig() error {
 
 	remnawavePlainDomain = os.Getenv("REMNAWAVE_PLAIN_DOMAIN")
 	if remnawavePlainDomain == "" {
-		return nil
+		slog.Error("REMNAWAVE_PLAIN_DOMAIN is required, fallback to example.com")
+		remnawavePlainDomain = "example.com"
 	}
 
 	legacyLinkSetting := os.Getenv("MARZBAN_LEGACY_LINK_ENABLED")
@@ -56,13 +58,17 @@ func LoadConfig() error {
 	}
 
 	customSubPrefix = os.Getenv("CUSTOM_SUB_PREFIX")
-	if customSubPrefix == "" {
-		return nil
-	}
 
 	logLevel := os.Getenv("LOG_LEVEL")
 	if logLevel == "" {
 		logLevel = "INFO"
+	}
+
+	requestRemnawaveScheme = os.Getenv("REQUEST_REMNAWAVE_SCHEME")
+	if requestRemnawaveScheme == "" {
+		requestRemnawaveScheme = "https"
+	} else if requestRemnawaveScheme != "http" && requestRemnawaveScheme != "https" {
+		slog.Error("REQUEST_REMNAWAVE_SCHEME must be either http or https")
 	}
 
 	return nil
@@ -98,4 +104,8 @@ func GetCustomSubPrefix() string {
 
 func GetLogLevel() string {
 	return logLevel
+}
+
+func GetRequestRemnawaveScheme() string {
+	return requestRemnawaveScheme
 }
