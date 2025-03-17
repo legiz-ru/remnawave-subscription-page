@@ -76,16 +76,13 @@ func main() {
 
 	routes := app.Group(routePrefix)
 
-	clientTypes := []string{"json", "stash", "singbox", "singbox-legacy", "mihomo", "clash"}
-	for _, t := range clientTypes {
-		clientType := t
-		routes.Get("/:shortId/" + clientType, func(c *fiber.Ctx) error {
-			c.Locals("clientType", clientType)
-			return subscriptionHandler.HandleSubscription(c)
-		})
-	}
+	routes.Get("/:shortId/json", func(c *fiber.Ctx) error {
+		c.Locals("isJson", true)
+		return subscriptionHandler.HandleSubscription(c)
+	})
 
 	routes.Get("/:shortId", func(c *fiber.Ctx) error {
+		c.Locals("isJson", false)
 		return subscriptionHandler.HandleSubscription(c)
 	})
 
