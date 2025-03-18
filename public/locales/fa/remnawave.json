@@ -9,6 +9,7 @@
     "installation-guide": {
         "widget": {
             "install-clashmeta": "نصب و باز کردن Clash Meta",
+            "download-clashmeta": "صفحه را در GitHub یا F-Droid باز کنید، برنامه را دانلود و نصب کنید.",
             "add-subscription-description-clashmeta": "دکمه زیر را بزنید تا پنجره ایجاد پروفایل باز شود. شما باید دوره به‌روزرسانی خودکار را مشخص کنید، مثلاً ۷۲۰ دقیقه. دکمه ذخیره را در بالا سمت راست بزنید.",
             "connect-and-use-description-clashmeta": "به بخش پروفایل‌ها بروید و پروفایل ایجاد شده را انتخاب کنید، سپس به صفحه اصلی بازگردید. اکنون می‌توانید با زدن دکمه «متوقف شده» متصل شوید.",
             "open-github": "صفحه GitHub را باز کنید، برنامه را دانلود و نصب کنید.",
@@ -23,6 +24,7 @@
             "ustanovite-i-otkroite-happ": "Install and open Happ",
             "open-google-play": "Open the page in Google Play and install the app.",
             "open-in-google-play": "Open in Google Play",
+            "open-in-fdroid": "Open in F-Droid",
             "add-subscription": "Add subscription",
             "add-subscription-button": "Add subscription",
             "add-subscription-description": "Click the button below — the app will open and the subscription will be added automatically.",

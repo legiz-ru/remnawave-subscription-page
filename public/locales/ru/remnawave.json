@@ -9,6 +9,7 @@
     "installation-guide": {
         "widget": {
             "install-clashmeta": "Установите и откройте Clash Meta",
+            "download-clashmeta": "Откройте страницу в Github или F-Droid, загрузите и установите приложение.",
             "add-subscription-description-clashmeta": "Нажми кнопку ниже — откроется окно создания профиля. Тебе потребуется указать период автообновления, например, 720 минут. Справа вверху нажми на кнопку Сохранить",
             "connect-and-use-description-clashmeta": "Перейди в пункт Профили и выбери созданный профиль, затем вернись на главную страницу. Теперь ты можешь подключиться, нажав на кнопку Остановлен",
             "open-github": "Откройте страницу в Github, загрузите и установите приложение.",
@@ -23,6 +24,7 @@
             "ustanovite-i-otkroite-happ": "Установите и откройте Happ",
             "open-google-play": "Откройте страницу в Google Play и установите приложение.",
             "open-in-google-play": "Открыть в Google Play",
+            "open-in-fdroid": "Открыть в F-Droid",
             "add-subscription": "Добавьте подписку",
             "add-subscription-button": "Добавить подписку",
             "add-subscription-description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",

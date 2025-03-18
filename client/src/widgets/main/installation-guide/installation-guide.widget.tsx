@@ -78,7 +78,7 @@ export const InstallationGuideWidget = () => {
                         title={t('installation-guide.widget.install-clashmeta')}
                     >
                         <Text c="dimmed" mb={16} size="sm">
-                            {t('installation-guide.widget.open-github')}
+                            {t('installation-guide.widget.download-clashmeta')}
                         </Text>
                         <Button
                             component="a"
@@ -88,6 +88,15 @@ export const InstallationGuideWidget = () => {
                             variant="light"
                         >
                             {t('installation-guide.widget.download-github')}
+                        </Button>
+                        <Button
+                            component="a"
+                            href="https://f-droid.org/packages/com.github.metacubex.clash.meta/"
+                            leftSection={<IconExternalLink size={16} />}
+                            target="_blank"
+                            variant="light"
+                        >
+                            {t('installation-guide.widget.open-in-fdroid')}
                         </Button>
                     </Timeline.Item>
 
