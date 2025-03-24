@@ -68,24 +68,26 @@ export const InstallationGuideWidget = () => {
                         <Text c="dimmed" mb={16} size="sm">
                             {t('installation-guide.widget.download-clashmeta')}
                         </Text>
-                        <Button
-                            component="a"
-                            href="https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.7/cmfa-2.11.7-meta-universal-release.apk"
-                            leftSection={<IconExternalLink size={16} />}
-                            target="_blank"
-                            variant="light"
-                        >
-                            {t('installation-guide.widget.download-github')}
-                        </Button>
-                        <Button
-                            component="a"
-                            href="https://f-droid.org/packages/com.github.metacubex.clash.meta/"
-                            leftSection={<IconExternalLink size={16} />}
-                            target="_blank"
-                            variant="light"
-                        >
-                            {t('installation-guide.widget.open-in-fdroid')}
-                        </Button>
+                        <Group>
+                            <Button
+                                component="a"
+                                href="https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.7/cmfa-2.11.7-meta-universal-release.apk"
+                                leftSection={<IconExternalLink size={16} />}
+                                target="_blank"
+                                variant="light"
+                            >
+                                {t('installation-guide.widget.download-github')}
+                            </Button>
+                            <Button
+                                component="a"
+                                href="https://f-droid.org/packages/com.github.metacubex.clash.meta/"
+                                leftSection={<IconExternalLink size={16} />}
+                                target="_blank"
+                                variant="light"
+                            >
+                                {t('installation-guide.widget.open-in-fdroid')}
+                            </Button>
+                        </Group>
                     </Timeline.Item>
 
                     <Timeline.Item
