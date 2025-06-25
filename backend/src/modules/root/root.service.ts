@@ -133,6 +133,25 @@ export class RootService {
         return browserKeywords.some((keyword) => userAgent.includes(keyword));
     }
 
+    private getAppConfig(): string {
+        try {
+            const appConfigPath = '/opt/app/frontend/assets/app-config.json';
+            
+            if (fs.existsSync(appConfigPath)) {
+                const appConfigContent = fs.readFileSync(appConfigPath, 'utf8');
+                // Парсим JSON чтобы убедиться в корректности формата, затем возвращаем как строку
+                const appConfigJson = JSON.parse(appConfigContent);
+                return JSON.stringify(appConfigJson);
+            } else {
+                this.logger.warn(`App config file not found at: ${appConfigPath}`);
+                return JSON.stringify({});
+            }
+        } catch (error) {
+            this.logger.error(`Error reading app-config.json: ${error}`);
+            return JSON.stringify({});
+        }
+    }
+
     private async returnWebpage(req: Request, res: Response, shortUuid: string): Promise<void> {
         try {
             const cookieJwt = await this.generateJwtForCookie();
@@ -162,6 +181,7 @@ export class RootService {
                     .getOrThrow<string>('META_DESCRIPTION')
                     .replace(/^"|"$/g, ''),
                 panelData: Buffer.from(JSON.stringify(subscriptionData)).toString('base64'),
+                appConfig: appConfig,
             });
         } catch (error) {
             this.logger.error('Error in returnWebpage', error);
