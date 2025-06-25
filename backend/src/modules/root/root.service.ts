@@ -2,6 +2,7 @@ import { RawAxiosResponseHeaders } from 'axios';
 import { AxiosResponseHeaders } from 'axios';
 import { Request, Response } from 'express';
 import { createHash } from 'node:crypto';
+import { readFileSync, existsSync } from 'node:fs';
 import { nanoid } from 'nanoid';
 
 import { ConfigService } from '@nestjs/config';
@@ -137,9 +138,9 @@ export class RootService {
         try {
             const appConfigPath = '/opt/app/frontend/assets/app-config.json';
             
-            if (fs.existsSync(appConfigPath)) {
-                const appConfigContent = fs.readFileSync(appConfigPath, 'utf8');
-                // Парсим JSON чтобы убедиться в корректности формата, затем возвращаем как строку
+            if (existsSync(appConfigPath)) {
+                const appConfigContent = readFileSync(appConfigPath, 'utf8');
+                // Парсим JSON чтобы убедиться в корректности, затем возвращаем как строку
                 const appConfigJson = JSON.parse(appConfigContent);
                 return JSON.stringify(appConfigJson);
             } else {
@@ -173,6 +174,9 @@ export class RootService {
                 maxAge: 3_600_000, // 1 hour
             });
 
+            // Получаем содержимое app-config.json
+            const appConfig = this.getAppConfig();
+
             res.render('index', {
                 metaTitle: this.configService
                     .getOrThrow<string>('META_TITLE')
@@ -181,7 +185,7 @@ export class RootService {
                     .getOrThrow<string>('META_DESCRIPTION')
                     .replace(/^"|"$/g, ''),
                 panelData: Buffer.from(JSON.stringify(subscriptionData)).toString('base64'),
-                appConfig: appConfig,
+                appConfig: appConfig, // Добавляем содержимое app-config.json
             });
         } catch (error) {
             this.logger.error('Error in returnWebpage', error);
