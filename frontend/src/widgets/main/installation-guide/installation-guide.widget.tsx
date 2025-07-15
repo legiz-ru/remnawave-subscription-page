@@ -74,12 +74,25 @@ export const InstallationGuideWidget = ({ appsConfig }: { appsConfig: IPlatformC
     }
 
     const openDeepLink = (urlScheme: string, isNeedBase64Encoding: boolean | undefined) => {
+        const redirectLink = import.meta.env.VITE_REDIRECT_LINK || ''
+
         if (isNeedBase64Encoding) {
             const encoded = btoa(`${subscriptionUrl}`)
             const encodedUrl = `${urlScheme}${encoded}`
-            window.open(encodedUrl, '_blank')
+
+            if (redirectLink) {
+                window.open(`${redirectLink}${encodeURIComponent(encodedUrl)}`, '_blank')
+            } else {
+                window.open(encodedUrl, '_blank')
+            }
         } else {
-            window.open(`${urlScheme}${subscriptionUrl}`, '_blank')
+            const plainUrl = `${urlScheme}${subscriptionUrl}`
+
+            if (redirectLink) {
+                window.open(`${redirectLink}${encodeURIComponent(plainUrl)}`, '_blank')
+            } else {
+                window.open(plainUrl, '_blank')
+            }
         }
     }
 
